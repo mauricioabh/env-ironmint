@@ -1,0 +1,115 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Please provide as much detail as possible.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 🐛 Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe the bug...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 🔄 Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Run command '...'
+        2. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Expected Behavior
+      description: What you expected to happen
+      placeholder: What should happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Actual Behavior
+      description: What actually happened
+      placeholder: What actually happened?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: 📦 Version
+      description: Which version of env-ironmint are you using?
+      options:
+        - "1.0.0"
+        - "0.x.x"
+        - "Other"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: node-version
+    attributes:
+      label: 🟢 Node.js Version
+      description: Which version of Node.js are you using?
+      options:
+        - "18.x"
+        - "20.x"
+        - "21.x"
+        - "Other"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 💻 Operating System
+      description: Which operating system are you using?
+      options:
+        - "Windows"
+        - "macOS"
+        - "Linux"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: env-files
+    attributes:
+      label: 📄 Environment Files
+      description: Please share your .env files (sanitized - remove any secrets!)
+      placeholder: |
+        .env.example:
+        API_KEY=your_api_key_here
+        JWT_SECRET=your_jwt_secret_here
+
+        .env.local:
+        API_KEY=test_key
+        JWT_SECRET=test_secret
+
+  - type: textarea
+    id: output
+    attributes:
+      label: 📋 Console Output
+      description: Please paste the console output/error messages
+      render: shell
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📝 Additional Context
+      description: Any other context about the problem
+      placeholder: Add any other context about the problem here...

@@ -1,0 +1,85 @@
+name: ✨ Feature Request
+description: Suggest an idea for env-ironmint
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please provide as much detail as possible.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: ✨ Feature Description
+      description: A clear and concise description of the feature you'd like to see.
+      placeholder: Describe the feature...
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🎯 Problem Statement
+      description: What problem does this feature solve?
+      placeholder: What problem are you trying to solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 💡 Proposed Solution
+      description: Describe the solution you'd like
+      placeholder: How should this feature work?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternatives Considered
+      description: Any alternative solutions or workarounds you've considered
+      placeholder: What other approaches did you consider?
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: 📋 Use Cases
+      description: Describe specific use cases for this feature
+      placeholder: |
+        1. Use case 1
+        2. Use case 2
+        3. Use case 3
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: 💻 Code Examples
+      description: If applicable, provide code examples of how this feature might work
+      placeholder: |
+        ```bash
+        npx env-ironmint new-command --option
+        ```
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: ⭐ Priority
+      description: How important is this feature to you?
+      options:
+        - "Low - Nice to have"
+        - "Medium - Would be helpful"
+        - "High - Important for my workflow"
+        - "Critical - Blocking my usage"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📝 Additional Context
+      description: Any other context or screenshots about the feature request
+      placeholder: Add any other context about the feature request here...
