@@ -35,22 +35,22 @@
     "ci-cd"
   ],
   "author": {
-    "name": "env-ironmint Contributors",
-    "email": "contributors@env-ironmint.dev",
-    "url": "https://github.com/env-ironmint"
+    "name": "Mauricio Barragan",
+    "email": "mauricioabh@github.com",
+    "url": "https://github.com/mauricioabh"
   },
   "license": "MIT",
-  "homepage": "https://github.com/env-ironmint/env-ironmint#readme",
+  "homepage": "https://github.com/mauricioabh/env-ironmint#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/env-ironmint/env-ironmint.git"
+    "url": "https://github.com/mauricioabh/env-ironmint.git"
   },
   "bugs": {
-    "url": "https://github.com/env-ironmint/env-ironmint/issues"
+    "url": "https://github.com/mauricioabh/env-ironmint/issues"
   },
   "funding": {
     "type": "github",
-    "url": "https://github.com/sponsors/env-ironmint"
+    "url": "https://github.com/sponsors/mauricioabh"
   },
   "files": [
     "dist/**/*",
