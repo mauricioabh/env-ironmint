@@ -12,6 +12,13 @@
 - Closes #
 - Related to #
 
+## 🎫 Jira Issue
+
+<!-- Link to Jira issue -->
+
+- [ ] Closes JRA-123
+- [ ] Related to JRA-123
+
 ## 🧪 Type of Change
 
 <!-- Mark the relevant option with an "x" -->

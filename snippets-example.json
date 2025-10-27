@@ -1,0 +1,50 @@
+{
+  "Jira Commit": {
+    "prefix": "jira",
+    "body": [
+      "${1:JRA-123}: ${2:Description}"
+    ],
+    "description": "Jira commit with issue reference"
+  },
+  "Jira Smart Commit": {
+    "prefix": "jira-smart",
+    "body": [
+      "${1:JRA-123} #${2|comment,in-progress,done,close|} ${3:Description}"
+    ],
+    "description": "Jira smart commit with status transition"
+  },
+  "Jira Branch": {
+    "prefix": "jira-branch",
+    "body": [
+      "${1:JRA-123}-${2:branch-name}"
+    ],
+    "description": "Jira branch name format"
+  },
+  "GitHub PR Title": {
+    "prefix": "pr-title",
+    "body": [
+      "${1:JRA-123}: ${2:PR Title}"
+    ],
+    "description": "GitHub PR title with Jira reference"
+  },
+  "GitHub PR Description": {
+    "prefix": "pr-desc",
+    "body": [
+      "## Jira Issue",
+      "- [ ] Closes ${1:JRA-123}",
+      "",
+      "## Description",
+      "${2:Brief description of changes}",
+      "",
+      "## Testing",
+      "- [ ] Tests pass",
+      "- [ ] Manual testing completed",
+      "",
+      "## Checklist",
+      "- [ ] Code follows project style",
+      "- [ ] Self-review completed",
+      "- [ ] Documentation updated"
+    ],
+    "description": "GitHub PR description template"
+  }
+}

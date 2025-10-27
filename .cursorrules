@@ -1,0 +1,128 @@
+# Cursor Rules for env-ironmint Project
+
+## Project Context
+
+This is env-ironmint, a CLI tool for validating .env files in Node.js projects.
+
+- Repository: https://github.com/mauricioabh/env-ironmint
+- NPM Package: https://www.npmjs.com/package/env-ironmint
+- Tech Stack: Node.js, TypeScript, ESM, Jest, Commander.js
+
+## Jira Integration Rules
+
+- Always include Jira issue keys in commit messages (format: JRA-123: Description)
+- Use smart commits for status transitions (JRA-123 #in-progress, JRA-123 #done, JRA-123 #close)
+- Create branches with Jira issue format (JRA-123-feature-name)
+- Include Jira issue in PR titles (JRA-123: PR Title)
+- Reference Jira issues in PR descriptions
+
+## Commit Message Format
+
+- Format: "JRA-123: Brief description"
+- Use present tense: "Add feature" not "Added feature"
+- Keep under 50 characters for title
+- Use body for detailed explanation if needed
+
+## Branch Naming Convention
+
+- Format: JRA-123-kebab-case-description
+- Examples:
+  - JRA-123-add-vscode-extension
+  - JRA-124-fix-security-validation
+  - JRA-125-improve-error-messages
+
+## Pull Request Guidelines
+
+- Title format: "JRA-123: Brief description"
+- Include Jira issue reference in description
+- Use checklist format for PR description
+- Reference related issues and PRs
+
+## Code Style
+
+- Use TypeScript with strict mode
+- Follow ESM module syntax
+- Use async/await for promises
+- Include JSDoc comments for public functions
+- Write tests for new features
+
+## Testing Requirements
+
+- All new features must have tests
+- Use Jest for testing
+- Maintain test coverage
+- Test both success and error cases
+
+## Documentation
+
+- Update README.md for new features
+- Update CHANGELOG.md for releases
+- Include usage examples
+- Document breaking changes
+
+## Security Considerations
+
+- Never commit sensitive data
+- Use environment variables for configuration
+- Validate all inputs
+- Follow security best practices
+
+## Examples
+
+### Commit Messages
+
+```
+JRA-123: Add VS Code extension for env validation
+JRA-124: Fix security issue in env-detector
+JRA-125: Improve error messages in output-formatter
+```
+
+### Smart Commits
+
+```
+JRA-123 #in-progress Working on VS Code extension
+JRA-123 #done VS Code extension completed
+JRA-123 #close Extension ready for testing
+```
+
+### Branch Names
+
+```
+JRA-123-add-vscode-extension
+JRA-124-fix-security-validation
+JRA-125-improve-error-messages
+```
+
+### PR Titles
+
+```
+JRA-123: Add VS Code extension for env validation
+JRA-124: Fix security issue in env-detector
+JRA-125: Improve error messages in output-formatter
+```
+
+### PR Description Template
+
+```
+## Jira Issue
+- [ ] Closes JRA-123
+
+## Description
+Brief description of changes
+
+## Type of Change
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
+- [ ] Documentation update
+
+## Testing
+- [ ] Tests pass
+- [ ] Manual testing completed
+- [ ] Edge cases tested
+
+## Checklist
+- [ ] Code follows project style
+- [ ] Self-review completed
+- [ ] Documentation updated
+```
