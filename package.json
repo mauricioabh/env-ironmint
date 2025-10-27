@@ -1,6 +1,6 @@
 {
   "name": "env-ironmint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI tool to validate .env files, detect security issues, and prevent production disasters",
   "type": "module",
   "main": "dist/index.js",
