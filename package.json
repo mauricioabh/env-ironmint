@@ -1,7 +1,7 @@
 {
   "name": "env-ironmint",
   "version": "1.0.0",
-  "description": "A modern utility to verify, compare and validate .env files across your project",
+  "description": "CLI tool to validate .env files, detect security issues, and prevent production disasters",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -32,7 +32,14 @@
     "npm",
     "development",
     "devops",
-    "ci-cd"
+    "ci-cd",
+    "environment-variables",
+    "env-validation",
+    "env-checker",
+    "env-validator",
+    "security-validation",
+    "production-safety",
+    "env-files"
   ],
   "author": {
     "name": "Mauricio Barragan",
