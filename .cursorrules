@@ -67,6 +67,15 @@ This is env-ironmint, a CLI tool for validating .env files in Node.js projects.
 - Validate all inputs
 - Follow security best practices
 
+## PowerShell Commands Rules
+
+- NEVER use multi-line commit messages with double quotes in PowerShell
+- Use single-line commit messages: git commit -m "Single line message"
+- For multi-line commits, use: git commit -m "Title" -m "Body line 1" -m "Body line 2"
+- Avoid && operator in PowerShell, use separate commands instead
+- Use semicolons (;) for command chaining in PowerShell
+- Test PowerShell commands before suggesting them
+
 ## Examples
 
 ### Commit Messages
