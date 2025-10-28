@@ -18,6 +18,9 @@ jobs:
         with:
           issue: ${{ github.event.pull_request.title }}
           transition: "In Review"
+          jira_base_url: ${{ secrets.JIRA_BASE_URL }}
+          jira_user_email: ${{ secrets.JIRA_USER_EMAIL }}
+          jira_api_token: ${{ secrets.JIRA_API_TOKEN }}
         if: github.event_name == 'pull_request' && github.event.action == 'opened'
 
       - name: Close Jira Issue
@@ -25,4 +28,7 @@ jobs:
         with:
           issue: ${{ github.event.pull_request.title }}
           transition: "Done"
+          jira_base_url: ${{ secrets.JIRA_BASE_URL }}
+          jira_user_email: ${{ secrets.JIRA_USER_EMAIL }}
+          jira_api_token: ${{ secrets.JIRA_API_TOKEN }}
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
