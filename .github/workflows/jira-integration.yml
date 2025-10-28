@@ -13,16 +13,62 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Sync with Jira
-        uses: atlassian/gajira-transition@v3
-        with:
-          issue: ${{ github.event.pull_request.title }}
-          transition: "In Review"
-        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+      - name: Extract Jira Issue Key
+        id: extract-issue
+        run: |
+          # Extract Jira issue key from PR title (format: SCRUM-123: Description)
+          ISSUE_KEY=$(echo "${{ github.event.pull_request.title }}" | grep -oE '^[A-Z]+-[0-9]+' | head -1)
+          echo "issue_key=$ISSUE_KEY" >> $GITHUB_OUTPUT
+          echo "Found issue key: $ISSUE_KEY"
 
-      - name: Close Jira Issue
-        uses: atlassian/gajira-transition@v3
-        with:
-          issue: ${{ github.event.pull_request.title }}
-          transition: "Done"
-        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+      - name: Transition to In Review
+        if: github.event_name == 'pull_request' && github.event.action == 'opened' && steps.extract-issue.outputs.issue_key != ''
+        run: |
+          ISSUE_KEY="${{ steps.extract-issue.outputs.issue_key }}"
+          echo "Transitioning issue $ISSUE_KEY to In Review"
+
+          # Get available transitions
+          TRANSITIONS=$(curl -s -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            "${{ secrets.JIRA_BASE_URL }}/rest/api/3/issue/$ISSUE_KEY/transitions")
+
+          echo "Available transitions: $TRANSITIONS"
+
+          # Try to transition to "In Review" or "In Progress"
+          TRANSITION_ID=$(echo $TRANSITIONS | jq -r '.transitions[] | select(.name | test("In Review|In Progress|To Do"; "i")) | .id' | head -1)
+
+          if [ "$TRANSITION_ID" != "null" ] && [ "$TRANSITION_ID" != "" ]; then
+            curl -s -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+              -X POST \
+              -H "Content-Type: application/json" \
+              -d "{\"transition\":{\"id\":\"$TRANSITION_ID\"}}" \
+              "${{ secrets.JIRA_BASE_URL }}/rest/api/3/issue/$ISSUE_KEY/transitions"
+            echo "Successfully transitioned to $TRANSITION_ID"
+          else
+            echo "No suitable transition found"
+          fi
+
+      - name: Transition to Done
+        if: github.event_name == 'pull_request' && github.event.action == 'closed' && steps.extract-issue.outputs.issue_key != ''
+        run: |
+          ISSUE_KEY="${{ steps.extract-issue.outputs.issue_key }}"
+          echo "Transitioning issue $ISSUE_KEY to Done"
+
+          # Get available transitions
+          TRANSITIONS=$(curl -s -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            "${{ secrets.JIRA_BASE_URL }}/rest/api/3/issue/$ISSUE_KEY/transitions")
+
+          # Try to transition to "Done" or "Closed"
+          TRANSITION_ID=$(echo $TRANSITIONS | jq -r '.transitions[] | select(.name | test("Done|Closed|Complete"; "i")) | .id' | head -1)
+
+          if [ "$TRANSITION_ID" != "null" ] && [ "$TRANSITION_ID" != "" ]; then
+            curl -s -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
+              -X POST \
+              -H "Content-Type: application/json" \
+              -d "{\"transition\":{\"id\":\"$TRANSITION_ID\"}}" \
+              "${{ secrets.JIRA_BASE_URL }}/rest/api/3/issue/$ISSUE_KEY/transitions"
+            echo "Successfully transitioned to $TRANSITION_ID"
+          else
+            echo "No suitable transition found"
+          fi
