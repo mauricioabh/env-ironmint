@@ -34,8 +34,8 @@ jobs:
 
           echo "Available transitions: $TRANSITIONS"
 
-          # Try to transition to "In Review" or "In Progress"
-          TRANSITION_ID=$(echo $TRANSITIONS | jq -r '.transitions[] | select(.name | test("In Review|In Progress|To Do"; "i")) | .id' | head -1)
+          # Try to transition to "En revisión" or "En curso"
+          TRANSITION_ID=$(echo $TRANSITIONS | jq -r '.transitions[] | select(.name | test("En revisión|En curso|In Review|In Progress"; "i")) | .id' | head -1)
 
           if [ "$TRANSITION_ID" != "null" ] && [ "$TRANSITION_ID" != "" ]; then
             curl -s -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
@@ -59,8 +59,8 @@ jobs:
             -H "Content-Type: application/json" \
             "${{ secrets.JIRA_BASE_URL }}/rest/api/3/issue/$ISSUE_KEY/transitions")
 
-          # Try to transition to "Done" or "Closed"
-          TRANSITION_ID=$(echo $TRANSITIONS | jq -r '.transitions[] | select(.name | test("Done|Closed|Complete"; "i")) | .id' | head -1)
+          # Try to transition to "Finalizado" or "Done"
+          TRANSITION_ID=$(echo $TRANSITIONS | jq -r '.transitions[] | select(.name | test("Finalizado|Done|Closed|Complete"; "i")) | .id' | head -1)
 
           if [ "$TRANSITION_ID" != "null" ] && [ "$TRANSITION_ID" != "" ]; then
             curl -s -u "${{ secrets.JIRA_USER_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}" \
