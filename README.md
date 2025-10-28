@@ -29,6 +29,9 @@ npx env-ironmint sync
 
 # List all .env files
 npx env-ironmint list
+
+# Test Branch Protection
+npx env-ironmint --version
 ```
 
 ## 📋 Commands
