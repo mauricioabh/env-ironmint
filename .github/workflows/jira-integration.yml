@@ -1,0 +1,28 @@
+name: Jira Integration
+
+on:
+  pull_request:
+    types: [opened, closed, merged]
+  issues:
+    types: [opened, closed]
+
+jobs:
+  jira-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Sync with Jira
+        uses: atlassian/gajira-transition@v3
+        with:
+          issue: ${{ github.event.pull_request.title }}
+          transition: "In Review"
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+
+      - name: Close Jira Issue
+        uses: atlassian/gajira-transition@v3
+        with:
+          issue: ${{ github.event.pull_request.title }}
+          transition: "Done"
+        if: github.event_name == 'pull_request' && github.event.action == 'closed'
