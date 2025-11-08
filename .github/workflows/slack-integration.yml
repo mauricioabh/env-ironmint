@@ -1,0 +1,103 @@
+name: Slack Integration
+
+on:
+  pull_request:
+    types: [opened, closed, reopened, edited]
+  pull_request_review:
+    types: [submitted]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, closed, reopened, edited]
+  issue_comment:
+    types: [created]
+  push:
+    branches: [main, develop]
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+    steps:
+      - name: Send Slack Notification for PR Events
+        if: github.event_name == 'pull_request'
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          payload: |
+            {
+              "text": "GitHub PR Event",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Pull Request ${{ github.event.action }}*\n*Repository:* ${{ github.repository }}\n*PR:* <${{ github.event.pull_request.html_url }}|#${{ github.event.pull_request.number }} - ${{ github.event.pull_request.title }}>\n*Author:* ${{ github.event.pull_request.user.login }}\n*Action:* ${{ github.event.action }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Send Slack Notification for Issue Events
+        if: github.event_name == 'issues'
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          payload: |
+            {
+              "text": "GitHub Issue Event",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Issue ${{ github.event.action }}*\n*Repository:* ${{ github.repository }}\n*Issue:* <${{ github.event.issue.html_url }}|#${{ github.event.issue.number }} - ${{ github.event.issue.title }}>\n*Author:* ${{ github.event.issue.user.login }}\n*Action:* ${{ github.event.action }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Send Slack Notification for PR Comment
+        if: github.event_name == 'issue_comment' && github.event.issue.pull_request
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          payload: |
+            {
+              "text": "New PR Comment",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*New comment on PR #${{ github.event.issue.number }}*\n*Repository:* ${{ github.repository }}\n*PR:* <${{ github.event.issue.html_url }}|${{ github.event.issue.title }}>\n*Commenter:* ${{ github.event.comment.user.login }}\n*Comment:* ${{ github.event.comment.body }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Send Slack Notification for Push
+        if: github.event_name == 'push'
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          payload: |
+            {
+              "text": "GitHub Push Event",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Push to ${{ github.ref_name }}*\n*Repository:* ${{ github.repository }}\n*Pusher:* ${{ github.event.pusher.name }}\n*Commits:* ${{ github.event.commits[0].message }}\n*Compare:* <${{ github.event.compare }}|View Changes>"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
