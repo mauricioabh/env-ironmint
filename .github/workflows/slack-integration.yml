@@ -17,6 +17,10 @@ on:
 jobs:
   notify-slack:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
     steps:
       - name: Send Slack Notification for PR Events
         if: github.event_name == 'pull_request'
